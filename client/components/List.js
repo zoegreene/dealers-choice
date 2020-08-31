@@ -1,11 +1,10 @@
 import React from 'react';
-import Details from './Details'
 
 const List = ({ cars }) => {
   return (
     cars.map(car => {
       return (
-        <li key={ car.id }>{ car.model }</li>
+        <div className='single-car' key={ car.id }><a href={ `#${ car.id }`}>{ car.model }</a></div>
       )
     })
   )
