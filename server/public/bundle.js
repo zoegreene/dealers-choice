@@ -193,10 +193,6 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
   }
 
   async componentDidMount() {
-    this.setState({
-      cars: (await axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/cars')).data
-    });
-
     const loadCar = async () => {
       const carId = window.location.hash.slice(1) * 1;
 
@@ -216,6 +212,9 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
 
     window.addEventListener('hashchange', loadCar);
     loadCar();
+    this.setState({
+      cars: (await axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/cars')).data
+    });
   }
 
   render() {

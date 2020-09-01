@@ -15,8 +15,6 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    this.setState({ cars: (await axios.get('/api/cars')).data });
-
     const loadCar = async() => {
       const carId = window.location.hash.slice(1) * 1;
       if (carId) {
@@ -29,6 +27,7 @@ class App extends React.Component {
 
     window.addEventListener('hashchange', loadCar);
     loadCar();
+    this.setState({ cars: (await axios.get('/api/cars')).data });
   }
 
   render() {
