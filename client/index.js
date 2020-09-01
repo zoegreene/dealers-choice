@@ -12,13 +12,6 @@ class App extends React.Component {
       details: [],
       carId: ''
     }
-    this.getDetails = this.getDetails.bind(this);
-  }
-
-  async getDetails() {
-    const { carId } = this.state;
-    const details = (await axios.get(`/api/cars/${carId}/details`)).data;
-    this.setState({ details });
   }
 
   async componentDidMount() {
@@ -26,13 +19,16 @@ class App extends React.Component {
 
     const loadCar = async() => {
       const carId = window.location.hash.slice(1) * 1;
-      this.setState({ carId });
-      this.getDetails();
+      if (carId) {
+        const details = (await axios.get(`/api/cars/${carId}/details`)).data;
+        this.setState({ carId, details });
+      } else {
+        this.setState({ carId: carId, details: {} })
+      }
     }
 
-    window.addEventListener('hashchange', async() => {
-      loadCar();
-    });
+    window.addEventListener('hashchange', loadCar);
+    loadCar();
   }
 
   render() {
